@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maaf ya, Sayang ❤️</title>
+  <style>
+    :root {
+      --primary: #e63946;
+      --card: rgba(255,255,255,0.9);
+      --text: #2b2b2b;
+      --wa: #25D366;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background-image: url('IMG-20250817-WA0012.jpg'); /* ganti sesuai foto */
+      background-size: cover;
+      background-position: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+    }
+    .card {
+      width: min(92vw, 540px);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      backdrop-filter: blur(3px);
+      animation: pop .5s ease;
+    }
+    h1 { margin: 6px 0 10px; color: var(--primary); font-size: clamp(24px, 4.5vw, 34px); }
+    p  { margin: 10px 0 18px; line-height: 1.6; font-size: clamp(15px, 3.6vw, 18px); }
+    .btn {
+      border: 0;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform .1s ease, box-shadow .2s ease;
+      margin: 6px;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--primary); box-shadow: 0 6px 16px rgba(230,57,70,.35); }
+    .btn-wa { background: var(--wa); box-shadow: 0 6px 16px rgba(37,211,102,.35); }
+    .hidden { display: none; }
+    @keyframes pop { from { transform: scale(.98); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+    .footer { margin-top: 12px; font-size: 12px; opacity: .7; }
+    /* tombol musik */
+    .audio-control {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Halaman 1 -->
+  <main id="halaman-1" class="card" role="main" aria-live="polite">
+    <h1>haloo zayy😉</h1>
+    <p>kamuuuh masih maraah yahh? 😞 sampe ningalin aku di skolaa??</p>
+    <button class="btn btn-primary" id="btn-next1">Lanjut</button>
+    <div class="footer">tekan tombol untuk lanjut</div>
+  </main>
+
+  <!-- Halaman 2 -->
+  <section id="halaman-2" class="card hidden" aria-live="polite">
+    <h1>😞</h1>
+    <p>kamuu masih marahh yaahh? iyaa aku ngerti kok, akuu belum bisaa jadi cwo yang baik dan ga bisa jaga mulut🫤</p>
+    <button class="btn btn-primary" id="btn-next2">Lanjut</button>
+  </section>
+
+  <!-- Halaman 3 -->
+  <section id="halaman-3" class="card hidden" aria-live="polite">
+    <h1>Pesan buat kamu ❤️</h1>
+    <p>akuy cuma mau pesan slama kamu masih marah ama aku kamu jangan lupa jaga polaa makan kmu yahhh<br/>
+    itu ajaaa akuu cuma mau mintaa maaf😞😞</p>
+    <button class="btn btn-primary" id="btn-back">Balik ke awal</button>
+    <button class="btn btn-wa" id="btn-wa">Chat WhatsApp</button>
+  </section>
+
+  <!-- Musik latar -->
+  <audio id="bgAudio" src="Monolog.mp3" autoplay loop></audio>
+  <div class="audio-control" onclick="toggleAudio()">⏸</div>
+
+  <script>
+    const page1 = document.getElementById('halaman-1');
+    const page2 = document.getElementById('halaman-2');
+    const page3 = document.getElementById('halaman-3');
+
+    document.getElementById('btn-next1').onclick = () => {
+      page1.classList.add('hidden');
+      page2.classList.remove('hidden');
+      page2.focus();
+    };
+    document.getElementById('btn-next2').onclick = () => {
+      page2.classList.add('hidden');
+      page3.classList.remove('hidden');
+      page3.focus();
+    };
+    document.getElementById('btn-back').onclick = () => {
+      page3.classList.add('hidden');
+      page1.classList.remove('hidden');
+      page1.focus();
+    };
+
+    // Tombol WhatsApp
+    document.getElementById('btn-wa').onclick = () => {
+      const nomor = "6285165268870"; // ganti dengan nomor kamu
+      const pesan = "iyaaa abangg aku maafinn koo";
+      const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+      window.open(url, '_blank');
+    };
+
+    // Musik control
+    const audio = document.getElementById('bgAudio');
+    const control = document.querySelector('.audio-control');
+    let isPlaying = true;
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+        control.textContent = '▶';
+      } else {
+        audio.play();
+        control.textContent = '⏸';
+      }
+      isPlaying = !isPlaying;
+    }
+  </script>
+</body>
+</html>
